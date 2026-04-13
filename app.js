@@ -80,6 +80,11 @@ function calculate() {
   state.previousInput = "";
   state.operator = null;
   state.justCalculated = true;
+  addToHistory({
+    total: result,
+    detail: `${formatNumber(state.previousInput)} ${state.operator} ${formatNumber(state.currentInput)}`,
+    time: new Date().toISOString(),
+  });
   updateDisplay();
 }
 
@@ -188,6 +193,11 @@ function addItem() {
 
   renderItems();
   renderMarketTotal();
+  addToHistory({
+    total: getMarketTotal(),
+    detail: `${marketState.items.length} item${marketState.items.length !== 1 ? "s" : ""}`,
+    time: new Date().toISOString(),
+  });
 }
 
 document.getElementById("add-item-btn").addEventListener("click", addItem);
@@ -235,4 +245,79 @@ btnMarket.addEventListener("click", () => {
   btnSimple.classList.remove("active");
   marketPanel.classList.remove("hidden");
   renderMarketTotal();
+});
+
+const MAX_HISTORY = 10;
+
+function loadHistory() {
+  try {
+    return JSON.parse(localStorage.getItem("marketCalcHistory")) || [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(history) {
+  localStorage.setItem("marketCalcHistory", JSON.stringify(history));
+}
+
+function addToHistory(entry) {
+  const history = loadHistory();
+  history.unshift(entry);
+  if (history.length > MAX_HISTORY) history.pop();
+  saveHistory(history);
+}
+
+function formatTime(isoString) {
+  const date = new Date(isoString);
+  return date.toLocaleDateString("en-NG", {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function renderHistory() {
+  const history = loadHistory();
+  const list = document.getElementById("history-list");
+  list.innerHTML = "";
+
+  if (history.length === 0) {
+    list.innerHTML =
+      '<li style="padding:16px;color:var(--color-text-muted);font-size:14px;">No history yet.</li>';
+    return;
+  }
+
+  history.forEach((entry) => {
+    const li = document.createElement("li");
+    li.className = "history-entry";
+    li.innerHTML = `
+      <div class="history-entry-top">
+        <span class="history-entry-total">₦${Number(entry.total).toLocaleString("en-NG")}</span>
+        <span class="history-entry-time">${formatTime(entry.time)}</span>
+      </div>
+      <p class="history-entry-detail">${entry.detail}</p>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function openHistory() {
+  renderHistory();
+  document.getElementById("history-panel").classList.add("open");
+}
+
+function closeHistory() {
+  document.getElementById("history-panel").classList.remove("open");
+}
+
+document.getElementById("history-btn").addEventListener("click", openHistory);
+document
+  .getElementById("history-close")
+  .addEventListener("click", closeHistory);
+
+document.getElementById("history-clear-btn").addEventListener("click", () => {
+  localStorage.removeItem("marketCalcHistory");
+  renderHistory();
 });
