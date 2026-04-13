@@ -49,18 +49,31 @@
       </section>
 
       <section class="numpad" aria-label="Number pad">
-        <button class="key" data-val="1">1</button>
-        <button class="key" data-val="2">2</button>
-        <button class="key" data-val="3">3</button>
-        <button class="key" data-val="4">4</button>
-        <button class="key" data-val="5">5</button>
-        <button class="key" data-val="6">6</button>
+        <button class="key key-accent" id="clear-btn">AC</button>
+        <button class="key" data-val="del" id="del-btn" aria-label="Delete">
+          ⌫
+        </button>
+        <button class="key" data-val="%">%</button>
+        <button class="key key-operator" data-val="/">÷</button>
+
         <button class="key" data-val="7">7</button>
         <button class="key" data-val="8">8</button>
         <button class="key" data-val="9">9</button>
-        <button class="key key-triple" data-val="000">000</button>
+        <button class="key key-operator" data-val="*">×</button>
+
+        <button class="key" data-val="4">4</button>
+        <button class="key" data-val="5">5</button>
+        <button class="key" data-val="6">6</button>
+        <button class="key key-operator" data-val="-">−</button>
+
+        <button class="key" data-val="1">1</button>
+        <button class="key" data-val="2">2</button>
+        <button class="key" data-val="3">3</button>
+        <button class="key key-operator" data-val="+">+</button>
+
+        <button class="key key-wide" data-val="000">000</button>
         <button class="key" data-val="0">0</button>
-        <button class="key key-del" id="del-btn" aria-label="Delete">⌫</button>
+        <button class="key key-primary" id="equals-btn">=</button>
       </section>
 
       <footer class="bottom-actions">

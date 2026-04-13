@@ -44,6 +44,8 @@ body {
   display: none !important;
 }
 
+/* display */
+
 .display {
   padding: 24px 24px 16px;
   border-bottom: 1px solid var(--color-border);
@@ -71,4 +73,61 @@ body {
   text-align: right;
   line-height: 1;
   word-break: break-all;
+}
+
+/* number pad */
+
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 16px;
+  flex: 1;
+}
+
+.key {
+  background-color: var(--color-surface);
+  border: none;
+  border-radius: var(--radius-key);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--color-text-main);
+  padding: 0;
+  height: 72px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--color-key-shadow);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-key-shadow);
+}
+
+.key-operator {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 22px;
+}
+
+.key-accent {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.key-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 28px;
+}
+
+.key-wide {
+  grid-column: span 2;
 }
