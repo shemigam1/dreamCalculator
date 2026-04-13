@@ -87,7 +87,7 @@ body {
 
 .app {
   width: 100%;
-  max-width: 420px;
+  max-width: 460px;
   min-height: 100dvh;
   background-color: var(--color-surface);
   display: flex;
